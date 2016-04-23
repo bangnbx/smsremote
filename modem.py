@@ -36,5 +36,14 @@ while True:
     else:
         print "wrong cmd"
 
-
+def run():
+    modem.write('AT+CNMI=2,1,0,0,0\r');
+    while True:
+        out = modem.readline();
+        #print(out)    
+        if "+CMTI" in out:
+            utils.getMessage(modem, utils.getMessageIndex(out))
+        elif "REC UNREAD" in out:
+            body = modem.readline()
+            print(body)
 
