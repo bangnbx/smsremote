@@ -1,6 +1,7 @@
 import subprocess
 import os
 import mysql.connector
+import paramiko
 
 DB_CONFIG = {
   'user': 'root',
@@ -18,11 +19,11 @@ class SubProcessor():
         try:
             cnx = mysql.connector.connect(**DB_CONFIG)
             cursor = cnx.cursor(buffered=True)
-            query = "SELECT username, passwd FROM users"
+            query = "SELECT username, passwd, hostname FROM users"
             cursor.execute(query)
             self.users = {}
-            for (u, p) in cursor:
-                self.users[u] = p
+            for (u, p, h) in cursor:
+                self.users[u] = (p, h)
             cursor.close()
             cnx.close()
         except IOError:
@@ -34,7 +35,7 @@ class SubProcessor():
         try:
             password = password.strip()
             user = user.strip()
-            correct_pw = self.users[user]
+            correct_pw = self.users[user][0]
 
             if correct_pw == password:
                 self.authorized = True

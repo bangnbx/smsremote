@@ -5,7 +5,7 @@ import Modem
 class Process():
     def __init__(self):
         self.process = SubProcessor.SubProcessor(os.getcwd())
-        self.process.authorized = True
+        #self.process.authorized = True
 
     def login(self, username, passwd):
         result = process.authorize(username, passwd)
@@ -38,4 +38,3 @@ class Process():
 
             response = process.run(command)
             print response
-

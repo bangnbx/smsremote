@@ -1,4 +1,4 @@
-import serial 
+import serial
 import time
 import utils
 import Process
@@ -17,7 +17,7 @@ class Modem():
         if self.modem.isOpen():
             print ("port " + self.modem.name + ' is open...')
         self.modem.write('AT&F\r\n')
-        time.sleep(2)    
+        time.sleep(2)
         self.modem.write('AT+CMGD=1,2\r\n')
         time.sleep(2)
 
@@ -38,7 +38,7 @@ class Modem():
                 self.modem.write('AT+CNMI=2,1,0,0,0\r');
                 while True:
                     out = self.modem.readline();
-                    #print(out)    
+                    #print(out)
                     if "+CMTI" in out:
                         utils.getMessage(self.modem, utils.getMessageIndex(out))
                     elif "REC UNREAD" in out:
@@ -49,6 +49,7 @@ class Modem():
 
     def run(self):
         process = Process.Process()
+        response = ''
         self.modem.write('AT+CMGF=1\r')
         time.sleep(1)
         self.modem.write('AT+CNMI=2,1,0,0,0\r\n');
@@ -56,16 +57,23 @@ class Modem():
         #self.modem.write('AT+CMGL="ALL"r\r');
         while True:
             out = self.modem.readline();
-            print(out)    
+            print(out)
             if "+CMTI" in out:
                 utils.getMessage(self.modem, utils.getMessageIndex(out))
             elif "REC UNREAD" in out:
             #else:
                 body = self.modem.readline()
-                print('body:' + body.splitlines()[0] + ':endbody')
-                #body = 'ls'
-                response = process.execute(body.splitlines()[0])
+                while(not process.authorized):
+                    try:
+                        process.authorize(body.split(' ')[0], body.split(' ')[1])
+                    except:
+                        response = "Please send your username and password, split by a whitespace"
+
+                if (process.authorized):
+                    response = process.execute(body.splitlines()[0])
+
                 time.sleep(1)
+
 
                 # self.modem.write('AT+CMGF=0\r')
                 # time.sleep(1)
@@ -102,7 +110,7 @@ class Modem():
 
                 count = 0
                 while True:
-                    utils.send(self.modem, ngoc, response[count:count + 159])
+                    utils.send(self.modem, vuBinh, response[count:count + 159])
                     count += 160
                     if (count > len(response)):
                         break
@@ -110,6 +118,3 @@ class Modem():
                 # clear mem
                 self.modem.write('AT+CMGD=1,2\r\n')
                 time.sleep(2)
-
-
-       
