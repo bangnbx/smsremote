@@ -6,6 +6,8 @@ def send(modem, number, message):
     time.sleep(1)
     modem.write('AT+CMGF=1\r')
     time.sleep(1)
+    modem.write('AT+CSCS="GSM"\r')
+    time.sleep(1)
     modem.write('''AT+CMGS="''' + number + '''"\r''')
     time.sleep(1)
     modem.write(message + "\r")
