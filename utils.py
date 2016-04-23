@@ -12,10 +12,13 @@ def send(modem, number, message):
     time.sleep(1)
     modem.write(chr(26))
     time.sleep(1)
+    modem.write('AT+CNMI=2,1,0,0,0\r\n');
+    time.sleep(2)
 
 def getMessageIndex(indicator):
     index = indicator.strip().split(',')[1]
     return index
 
 def getMessage(modem, index):
-    modem.write('AT+CMGR=' + index + '\r')
+    modem.write('AT+CMGR=' + index + '\r\n')
+    time.sleep(1)
