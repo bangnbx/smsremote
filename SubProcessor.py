@@ -1,17 +1,30 @@
 import subprocess
 import os
+import mysql.connector
+
+DB_CONFIG = {
+  'user': 'root',
+  'password': '',
+  'host': '127.0.0.1',
+  'database': 'sms_db',
+  'raise_on_warnings': True,
+}
+
 
 class SubProcessor():
 
     def __init__(self, cwd):
         self.cwd = cwd
         try:
-            config = open('config.txt', 'r')
-            usr = config.readline().strip()
-            print usr
-            pss = config.readline().strip()
-            print pss
-            self.users = {usr: pss}
+            cnx = mysql.connector.connect(**DB_CONFIG)
+            cursor = cnx.cursor(buffered=True)
+            query = "SELECT username, passwd FROM users"
+            cursor.execute(query)
+            self.users = {}
+            for (u, p) in cursor:
+                self.users[u] = p
+            cursor.close()
+            cnx.close()
         except IOError:
             print "IOError - no config file"
         self.authorized = False
@@ -21,12 +34,6 @@ class SubProcessor():
         try:
             password = password.strip()
             user = user.strip()
-
-            print password
-            print user
-
-            print self.users
-
             correct_pw = self.users[user]
 
             if correct_pw == password:
