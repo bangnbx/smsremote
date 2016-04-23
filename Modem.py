@@ -63,13 +63,13 @@ class Modem():
             elif "REC UNREAD" in out:
             #else:
                 body = self.modem.readline()
-                while(not process.authorized):
+                while(not process.process.authorized):
                     try:
-                        process.authorize(body.split(' ')[0], body.split(' ')[1])
+                        process.process.authorize(body.split(' ')[0], body.split(' ')[1])
                     except:
                         response = "Please send your username and password, split by a whitespace"
 
-                if (process.authorized):
+                if (process.process.authorized):
                     response = process.execute(body.splitlines()[0])
 
                 time.sleep(1)
