@@ -63,7 +63,6 @@ class Modem():
             elif "REC UNREAD" in out:
             #else:
                 body = self.modem.readline()
-                print(body)
                 if (not process.process.authorized):
                     try:
                         response = process.process.authorize(body.split(' ')[0], body.split(' ')[1])
