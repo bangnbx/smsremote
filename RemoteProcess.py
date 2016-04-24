@@ -12,6 +12,7 @@ class RemoteProcess():
 
     def execute(self, command):
         args = command.split(" ")
+        command = command[0].lower() + command[1:]
         dirChanged = False
         currentDir = ""
         if (args[0] == "cd"):

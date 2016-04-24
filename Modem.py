@@ -48,6 +48,9 @@ class Modem():
     def run(self):
         process = Process.Process()
         response = ''
+        authorized = False
+        username = ""
+        password = ""
         self.modem.write('AT+CMGF=1\r')
         time.sleep(1)
         self.modem.write('AT+CNMI=2,1,0,0,0\r\n');
@@ -62,9 +65,8 @@ class Modem():
             elif "REC UNREAD" in out:
             #else:
                 body = self.modem.readline()
-                username = ""
-                password = ""
-                if (not process.process.authorized):
+
+                if (not authorized):
                     try:
                         username = body.split(' ')[0]
                         password = body.split(' ')[1]
@@ -72,6 +74,7 @@ class Modem():
                     except:
                         response = "Please send your username and password, split by a whitespace"
                 else:
+                    authorized = True
                     host = process.getUserInfo(username)[1]
                     if host != '127.0.0.1':
                         process = RemoteProcess.RemoteProcess(username, password, host)
