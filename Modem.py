@@ -17,11 +17,9 @@ class Modem():
         if self.modem.isOpen():
             print ("port " + self.modem.name + ' is open...')
         self.modem.write('AT&F\r\n')
-        time.sleep(2)
+        time.sleep(1)
         self.modem.write('AT+CMGD=1,2\r\n')
-        time.sleep(2)
-
-
+        time.sleep(0.5)
 
     def test(self):
         while True:
@@ -72,42 +70,6 @@ class Modem():
                 else:
                     response = process.execute(body.splitlines()[0])
 
-                time.sleep(1)
-
-
-                # self.modem.write('AT+CMGF=0\r')
-                # time.sleep(1)
-
-                # print('response:' + response[0:])
-                # dpu = '0011000C914861555195810000FF05F4F29C1E03'
-                # dpu = '0041000C91486155519581000003050003000201986F79'
-
-                # print('sending')
-                # strS = 'AT+CMGS=' + str(len(dpu) / 2 - 1) + '\r';
-                # print(strS)
-                # self.modem.write(strS)
-                # time.sleep(1)
-                # self.modem.write(dpu);
-                # time.sleep(1)
-                # self.modem.write(chr(26))
-                # time.sleep(1)
-
-                # self.modem.write('AT+CMGF=0\r')
-                # time.sleep(1)
-                # print('done')
-
-                # dpu = '0041000C91486155519581000001050003000202FF0131'
-                # dpu = '0041000C91486155519581000003050003000202986F79'
-
-                # self.modem.write('AT+CMGS=' + str(len(dpu) / 2 - 1) + '\r')
-                # time.sleep(1)
-                # self.modem.write(dpu);
-                # time.sleep(1)
-                # self.modem.write(chr(26))
-                # time.sleep(1)
-                # print('done 2')
-
-
                 count = 0
                 while True:
                     utils.send(self.modem, vuBinh, response[count:count + 159])
@@ -117,4 +79,4 @@ class Modem():
 
                 # clear mem
                 self.modem.write('AT+CMGD=1,2\r\n')
-                time.sleep(2)
+                time.sleep(0.5)
