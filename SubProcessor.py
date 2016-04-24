@@ -27,7 +27,7 @@ class SubProcessor():
             cursor.close()
             cnx.close()
         except IOError:
-            print "IOError - no config file"
+            print "IOError"
         self.authorized = False
 
     def authorize(self, user, password):

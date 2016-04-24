@@ -71,7 +71,7 @@ class Modem():
                 else:
                     response = process.execute(body.splitlines()[0])
                     if (response==''):
-                        response = body.splitlines()[0] + "was successfully called"
+                        response = body.splitlines()[0] + " was successfully called"
 
                 count = 0
                 while True:
