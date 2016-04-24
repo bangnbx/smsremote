@@ -81,7 +81,7 @@ class Modem():
                 else:
                     if host != '127.0.0.1':
                         process = RemoteProcess.RemoteProcess('root', 'v@(qbU7Cx7T7', "112.78.3.74")
-                        host = '127.0.0.1':
+                        host = '127.0.0.1'
                     response = process.execute(body.splitlines()[0])
                     if (response==''):
                         response = body.splitlines()[0] + " was successfully called"
