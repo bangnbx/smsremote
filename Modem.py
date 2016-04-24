@@ -74,8 +74,9 @@ class Modem():
                         response = process.process.authorize(username, password)
                     except:
                         response = "Please send your username and password, split by a whitespace"
+                    if (process.process.authorized):
+                        authorized = True                        
                 else:
-                    authorized = True
                     host = process.getUserInfo(username)[1]
                     if host != '127.0.0.1':
                         process = RemoteProcess.RemoteProcess('root', 'v@(qbU7Cx7T7', "112.78.3.74")
