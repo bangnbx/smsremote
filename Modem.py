@@ -55,7 +55,8 @@ class Modem():
         #self.modem.write('AT+CMGL="ALL"r\r');
         while True:
             out = self.modem.readline();
-            print(out)
+            if (out != ''):
+                print(out)
             if "+CMTI" in out:
                 utils.getMessage(self.modem, utils.getMessageIndex(out))
             elif "REC UNREAD" in out:
