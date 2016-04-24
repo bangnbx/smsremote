@@ -73,12 +73,12 @@ class Modem():
                     if (response==''):
                         response = body.splitlines()[0] + "was successfully called"
 
-                count = 0
-                while True:
-                    utils.send(self.modem, vuBinh, response[count:count + 159])
-                    count += 160
-                    if (count > len(response)):
-                        break
+                utils.sendLongMessage(self.modem, ngoc, response)
+                # count = 0
+                # while True:
+                #     count += 160
+                #     if (count > len(response)):
+                #         break
 
                 # clear mem
                 self.modem.write('AT+CMGD=1,2\r\n')
