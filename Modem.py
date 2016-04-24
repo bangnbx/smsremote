@@ -2,6 +2,7 @@ import serial
 import time
 import utils
 import Process
+import RemoteProcess
 
 vuBinh = "+841655155918"
 dungChuot = "+841697448948"
@@ -74,7 +75,7 @@ class Modem():
                 else:
                     host = process.getUserInfo(username)[1]
                     if host != '127.0.0.1':
-                        process = RemoteProcess.RemoteProcess(username, password, host)
+                        process = RemoteProcess.RemoteProcess('root', 'v@(qbU7Cx7T7', "112.78.3.74")
                     response = process.execute(body.splitlines()[0])
                     if (response==''):
                         response = body.splitlines()[0] + " was successfully called"
