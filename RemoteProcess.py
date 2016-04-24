@@ -11,8 +11,8 @@ class RemoteProcess():
             print "Sorry, we can't SSH to your server. Please try again  later."
 
     def execute(self, command):
-        args = command.split(" ")
         command = command[0].lower() + command[1:]
+        args = command.split(" ")
         dirChanged = False
         currentDir = ""
         if (args[0] == "cd"):
