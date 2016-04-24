@@ -15,14 +15,11 @@ class Process():
         response = self.process.run(command)
         return response
 
-    def getUserInfo(self):
-        username = ''
-        passwd = ''
-        while (username == ''):
-            username = raw_input("Your username: ")
-        while(passwd == ''):
-            passwd = raw_input("Your password: ")
-        login(username, passwd)
+    def getUserInfo(self, username):
+        try:
+            return self.users[username]
+        except:
+            return "User isn't login"
 
     def main(self):
         while (not process.authorized):
