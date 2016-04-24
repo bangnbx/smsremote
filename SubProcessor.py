@@ -16,12 +16,12 @@ class SubProcessor():
 
     def __init__(self, cwd):
         self.cwd = cwd
+        self.users = {}
         try:
             cnx = mysql.connector.connect(**DB_CONFIG)
             cursor = cnx.cursor(buffered=True)
             query = "SELECT username, passwd, hostname FROM users"
             cursor.execute(query)
-            self.users = {}
             for (u, p, h) in cursor:
                 self.users[u] = (p, h)
             cursor.close()
@@ -53,6 +53,7 @@ class SubProcessor():
         os.chdir(self.cwd)
 
         # handle directory changes
+        command = command[0].lower() + command[1:]
         args = command.split(" ")
         dirChanged = False
         if (args[0] == "cd"):

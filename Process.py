@@ -17,7 +17,7 @@ class Process():
 
     def getUserInfo(self, username):
         try:
-            return self.users[username]
+            return self.process.users[username]
         except:
             return "User isn't login"
 
