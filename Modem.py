@@ -70,6 +70,8 @@ class Modem():
 
                 else:
                     response = process.execute(body.splitlines()[0])
+                    if (response==''):
+                        response = body.splitlines()[0]
 
                 count = 0
                 while True:

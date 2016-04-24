@@ -69,4 +69,5 @@ class SubProcessor():
         # change directory if necessary
         if (dirChanged):
             self.cwd = subprocess.check_output(command+"; pwd", shell=True).strip()
+            output = self.cwd
         return output
