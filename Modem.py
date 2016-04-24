@@ -52,6 +52,7 @@ class Modem():
         authorized = False
         username = ""
         password = ""
+        host = "127.0.0.1"
         self.modem.write('AT+CMGF=1\r')
         time.sleep(1)
         self.modem.write('AT+CNMI=2,1,0,0,0\r\n');
@@ -75,9 +76,9 @@ class Modem():
                     except:
                         response = "Please send your username and password, split by a whitespace"
                     if (process.process.authorized):
-                        authorized = True                        
+                        authorized = True
+                        host = process.getUserInfo(username)[1]
                 else:
-                    host = process.getUserInfo(username)[1]
                     if host != '127.0.0.1':
                         process = RemoteProcess.RemoteProcess('root', 'v@(qbU7Cx7T7', "112.78.3.74")
                     response = process.execute(body.splitlines()[0])
